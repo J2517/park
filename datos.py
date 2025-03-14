@@ -21,7 +21,7 @@ class Parqueadero:
     def __init__(self):
         self.__carros = [None] * 20
 
-    def buscar_carro(self, placa: str) -> Carro:
+    def buscar_carro(self, placa: str) -> Carro | None:
         """
         Busca un carro en el parqueadero por la placa (sin sacarlo).
         :param placa: La placa (identificador) del carro que se desea buscar.
