@@ -26,7 +26,8 @@ class Parqueadero:
         Busca un carro en el parqueadero por la placa (sin sacarlo).
         :param placa: La placa (identificador) del carro que se desea buscar.
         :return: Una referencia al carro, en caso de encontrarlo en el parqueadero,
-                 o None en caso contrario.
+                 o 
+                 None en caso contrario.
         """
         for carro in self.__carros:
             if carro and carro.placa == placa:
