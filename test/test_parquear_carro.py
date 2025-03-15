@@ -44,9 +44,9 @@ class TestParquearCarro(unittest.TestCase):
 
         # Intentamos parquear un carro con un modelo inválido (string)
         resultado = control.parquear_carro("XYZ999", "Honda", "modelo_invalido")
-
         
-        self.assertTrue(resultado)
+        self.assertFalse(resultado)
+        self.assertEqual(parqueadero.puestos_disponibles(), 20)
     
     def test_modelo_negativo(self):
         """ Intentar parquear un carro con un modelo negativo """
@@ -56,6 +56,34 @@ class TestParquearCarro(unittest.TestCase):
         # Intentamos parquear un carro con modelo negativo
         resultado = control.parquear_carro("XYZ999", "Honda", -2020)
 
-        # Como no hay validación, el carro se agrega con el modelo negativo
-        self.assertTrue(resultado)  # Debe retornar True (el carro se parquea)
+        self.assertFalse(resultado)
+        self.assertEqual(parqueadero.puestos_disponibles(), 20)  
 
+    def test_ingresar_modelo_futuro(self):
+        """ Intentar parquear un carro con un modelo que es tiempo futuro """
+        parqueadero = Parqueadero()
+        control = ControlParqueadero(parqueadero)
+
+        # Suponiendo que estamos en 2025, intentamos parquear un carro modelo 2030
+        resultado = control.parquear_carro("XYZ999", "Toyota", 2030)
+
+
+        self.assertFalse(resultado)
+        self.assertEqual(parqueadero.puestos_disponibles(), 20)
+
+    def test_parqueo_placa_invalida(self):
+        parqueadero = Parqueadero()
+        control = ControlParqueadero(parqueadero)
+
+        resultado = control.parquear_carro("", "Toyota", 2022)  # Placa vacía
+        self.assertFalse(resultado)
+
+        resultado = control.parquear_carro("12345", "Toyota", 2022)  # Placa sin formato válido
+        self.assertFalse(resultado)
+
+    def test_parqueo_marca_vacia(self):
+        parqueadero = Parqueadero()
+        control = ControlParqueadero(parqueadero)
+
+        resultado = control.parquear_carro("ABC123", "", 2022)  # Marca vacía
+        self.assertFalse(resultado)
