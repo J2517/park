@@ -38,7 +38,6 @@ class TestParquearCarro(unittest.TestCase):
         self.assertEqual(parqueadero.puestos_disponibles(), 19)  # Se reduce en 1 el número de puestos
     
     def test_modelo_invalido(self):
-        """ Intentar parquear un carro con un modelo inválido (string en vez de int) """
         parqueadero = Parqueadero()
         control = ControlParqueadero(parqueadero)
 
@@ -49,7 +48,6 @@ class TestParquearCarro(unittest.TestCase):
         self.assertEqual(parqueadero.puestos_disponibles(), 20)
     
     def test_modelo_negativo(self):
-        """ Intentar parquear un carro con un modelo negativo """
         parqueadero = Parqueadero()
         control = ControlParqueadero(parqueadero)
 
@@ -60,13 +58,11 @@ class TestParquearCarro(unittest.TestCase):
         self.assertEqual(parqueadero.puestos_disponibles(), 20)  
 
     def test_ingresar_modelo_futuro(self):
-        """ Intentar parquear un carro con un modelo que es tiempo futuro """
         parqueadero = Parqueadero()
         control = ControlParqueadero(parqueadero)
 
         # Suponiendo que estamos en 2025, intentamos parquear un carro modelo 2030
         resultado = control.parquear_carro("XYZ999", "Toyota", 2030)
-
 
         self.assertFalse(resultado)
         self.assertEqual(parqueadero.puestos_disponibles(), 20)
